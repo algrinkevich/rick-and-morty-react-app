@@ -6,3 +6,11 @@ export enum Palette {
 export enum Borders {
   BasicRadius = "25px",
 }
+
+export enum Sizes {
+  CardWidth = "14rem",
+}
+
+export enum Effects {
+  ActiveShadow = `0px 0px 28px 4px ${Palette.BasicColor}`,
+}

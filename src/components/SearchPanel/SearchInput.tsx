@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { Palette, Borders } from "../../style-variables";
+import { Palette, Borders, Effects } from "../../style-variables";
 
 const SearchContainer = styled.div`
-  margin-block: 6vw 2rem;
+  margin-bottom: 2rem;
   position: relative;
   min-width: 30%;
 
@@ -23,6 +23,7 @@ const Search = styled.input`
   font-family: inherit;
   padding: 0.8rem 2.3rem 0.8rem 1rem;
   width: 100%;
+  transition: box-shadow 0.3s ease-out;
 
   //&::-webkit-input-placeholder {}
 
@@ -32,6 +33,7 @@ const Search = styled.input`
 
   &:focus {
     outline: none;
+    box-shadow: ${Effects.ActiveShadow};
   }
 `;
 
