@@ -1,11 +1,17 @@
 import { useEffect } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  DefaultError,
+  InfiniteData,
+  QueryKey,
+} from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
 import Header from "./components/Header";
 import SearchPanel from "./components/SearchPanel/SearchPanel";
 import Card from "./components/Card";
+import Loader from "./components/Loader";
 import { Sizes } from "./style-variables";
 
 export interface CharacterInfo {
@@ -40,37 +46,26 @@ const CardsContainer = styled.section`
   }
 `;
 
-const Loader = styled.img`
-  display: block;
-  margin: 0 auto;
-  width: clamp(100px, 20vw, 200px);
-  animation: spin 1s linear infinite;
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
 const ErrorMessage = styled.h2`
   color: #fff;
 `;
 
 function App() {
-  const { status, data, isFetchingNextPage, fetchNextPage } =
-    useInfiniteQuery<GetCharactersResponse>({
-      queryKey: ["allCharacters"],
-      initialPageParam: "https://rickandmortyapi.com/api/character",
-      queryFn: async ({ pageParam }) => {
-        const res = await fetch(pageParam);
-        return (await res.json()) as GetCharactersResponse;
-      },
-      getNextPageParam: (lastPage) => lastPage.info.next,
-    });
+  const { status, data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery<
+    GetCharactersResponse,
+    DefaultError,
+    InfiniteData<GetCharactersResponse>,
+    QueryKey,
+    string
+  >({
+    queryKey: ["allCharacters"],
+    initialPageParam: "https://rickandmortyapi.com/api/character",
+    queryFn: async ({ pageParam }) => {
+      const res = await fetch(pageParam);
+      return (await res.json()) as GetCharactersResponse;
+    },
+    getNextPageParam: (lastPage) => lastPage.info.next,
+  });
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -85,7 +80,7 @@ function App() {
       <SearchPanel />
       <CardsContainer>
         {status === "pending" ? (
-          <Loader src="/src/assets/spinner.png" />
+          <Loader />
         ) : status === "error" ? (
           <ErrorMessage>
             {"Oops, cannot retrive data :( Please try again"}
@@ -102,7 +97,7 @@ function App() {
         )}
         <span ref={ref}></span>
       </CardsContainer>
-      {isFetchingNextPage && <Loader src="/src/assets/spinner.png" />}
+      {isFetchingNextPage && <Loader />}
     </>
   );
 }
