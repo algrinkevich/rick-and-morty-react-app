@@ -1,4 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
 import Header from "./components/Header";
@@ -16,6 +18,12 @@ export interface CharacterInfo {
 
 interface GetCharactersResponse {
   results: CharacterInfo[];
+  info: {
+    pages: number;
+    count: number;
+    next: string | null;
+    prev: string | null;
+  };
 }
 
 const CardsContainer = styled.section`
@@ -32,28 +40,69 @@ const CardsContainer = styled.section`
   }
 `;
 
+const Loader = styled.img`
+  display: block;
+  margin: 0 auto;
+  width: clamp(100px, 20vw, 200px);
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const ErrorMessage = styled.h2`
+  color: #fff;
+`;
+
 function App() {
-  const { isPending, error, data } = useQuery<GetCharactersResponse>({
-    queryKey: ["allCharacters"],
-    queryFn: () =>
-      fetch("https://rickandmortyapi.com/api/character").then((res) =>
-        res.json(),
-      ),
-  });
+  const { status, data, isFetchingNextPage, fetchNextPage } =
+    useInfiniteQuery<GetCharactersResponse>({
+      queryKey: ["allCharacters"],
+      initialPageParam: "https://rickandmortyapi.com/api/character",
+      queryFn: async ({ pageParam }) => {
+        const res = await fetch(pageParam);
+        return (await res.json()) as GetCharactersResponse;
+      },
+      getNextPageParam: (lastPage) => lastPage.info.next,
+    });
+  const { ref, inView } = useInView();
 
-  if (isPending) return "Loading...";
-
-  if (error) return "An error has occurred: " + error.message;
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
 
   return (
     <>
       <Header />
       <SearchPanel />
       <CardsContainer>
-        {data.results.map((character) => (
-          <Card character={character} />
-        ))}
+        {status === "pending" ? (
+          <Loader src="/src/assets/spinner.png" />
+        ) : status === "error" ? (
+          <ErrorMessage>
+            {"Oops, cannot retrive data :( Please try again"}
+          </ErrorMessage>
+        ) : (
+          data.pages
+            .reduce(
+              (acc, page) => [...acc, ...page.results],
+              [] as CharacterInfo[],
+            )
+            .map((character) => (
+              <Card character={character} key={character.id} />
+            ))
+        )}
+        <span ref={ref}></span>
       </CardsContainer>
+      {isFetchingNextPage && <Loader src="/src/assets/spinner.png" />}
     </>
   );
 }

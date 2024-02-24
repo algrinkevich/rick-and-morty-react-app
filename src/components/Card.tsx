@@ -63,7 +63,7 @@ const Card = ({ character }: { character: CharacterInfo }) => {
     <CardWrapper>
       <CharacterImage src={character.image} />
       <CharacterInfoBlock>
-        <p>
+        <p title={character.name}>
           <span>Name: </span>
           {character.name}
         </p>
