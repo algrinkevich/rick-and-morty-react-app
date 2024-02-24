@@ -25,9 +25,15 @@ const Card = styled.figure`
   background-color: #fff;
   border-radius: ${Borders.BasicRadius};
   transition: box-shadow 0.3s ease-out;
+  // TODO: rework shadow to be inset, reduce image size for that
+  box-shadow: ${Palette.BasicColor} 0px 0px 0px 2px;
+  border: 2px solid ${Palette.DarkGreen};
+  overflow: hidden;
 
   &:hover {
-    box-shadow: ${Effects.ActiveShadow};
+    box-shadow:
+      ${Effects.ActiveShadow},
+      ${Palette.BasicColor} 0px 0px 0px 2px;
     cursor: pointer;
   }
 `;
@@ -41,10 +47,12 @@ const CharacterImage = styled.img`
 
 const CharacterInfoBlock = styled.figcaption`
   height: 30%;
-  background-color: ${Palette.BasicColor};
+  background: repeating-linear-gradient(
+    0deg,
+    ${Palette.BasicColor},
+    ${Palette.DarkGreen} 3px
+  );
   padding: 1rem;
-  border-bottom-left-radius: ${Borders.BasicRadius};
-  border-bottom-right-radius: ${Borders.BasicRadius};
 
   & > p {
     margin: 0 0 0.3rem 0;

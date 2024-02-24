@@ -1,6 +1,8 @@
 export enum Palette {
   BasicColor = "#87f54e",
   SecondaryColor = "#272727",
+  DarkGreen = "#66bf37",
+  GreyColor = "#757575",
 }
 
 export enum Borders {

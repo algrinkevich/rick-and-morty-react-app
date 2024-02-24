@@ -8,17 +8,24 @@ interface SearchFilterProps {
 
 const Select = styled.select`
   appearance: none;
-  border: none;
+  border: 2px solid ${Palette.BasicColor};
   font-size: inherit;
   font-family: inherit;
-  background-color: ${Palette.BasicColor};
   border-radius: ${Borders.BasicRadius};
   padding: 0.6rem 2rem 0.6rem 1.6rem;
   cursor: pointer;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"),
+    repeating-linear-gradient(
+      0deg,
+      ${Palette.BasicColor},
+      ${Palette.DarkGreen} 3px
+    );
   background-repeat: no-repeat;
-  background-position: right 0.8rem center;
-  background-size: 1rem;
+  background-position:
+    right 0.8rem center,
+    0;
+  background-size: 1rem, 100%;
+  box-shadow: inset ${Palette.DarkGreen} 0px 0px 0px 2px;
 
   &:focus {
     outline: none;

@@ -13,23 +13,29 @@ const SearchContainer = styled.div`
 
   & .search-icon {
     position: absolute;
-    right: 6%;
+    right: 4%;
     top: 30%;
     font-size: 1.2rem;
+    color: ${Palette.GreyColor};
     cursor: pointer;
   }
 `;
 
 const Search = styled.input`
   border-radius: ${Borders.BasicRadius};
-  border: 4px solid ${Palette.BasicColor};
+  border: 2px solid ${Palette.BasicColor};
+  box-shadow: inset ${Palette.DarkGreen} 0px 0px 0px 2px;
   font-size: inherit;
   font-family: inherit;
+  color: #fff;
   padding: 0.8rem 2.3rem 0.8rem 1rem;
   width: 100%;
   transition: box-shadow 0.3s ease-out;
-
-  //&::-webkit-input-placeholder {}
+  background: repeating-linear-gradient(
+    0deg,
+    ${Palette.SecondaryColor},
+    #000 3px
+  );
 
   &::-webkit-search-cancel-button {
     display: none;
@@ -37,7 +43,9 @@ const Search = styled.input`
 
   &:focus {
     outline: none;
-    box-shadow: ${Effects.ActiveShadow};
+    box-shadow:
+      ${Effects.ActiveShadow},
+      inset ${Palette.DarkGreen} 0px 0px 0px 2px;
   }
 `;
 
