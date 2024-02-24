@@ -28,7 +28,7 @@ const Search = styled.input`
   font-size: inherit;
   font-family: inherit;
   color: #fff;
-  padding: 0.8rem 2.3rem 0.8rem 1rem;
+  padding: 0.8rem 3rem 0.8rem 1rem;
   width: 100%;
   transition: box-shadow 0.3s ease-out;
   background: repeating-linear-gradient(
