@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { Borders, Palette, Sizes, Effects } from "../style-variables";
+import { CharacterInfo } from "../App";
 
 const CardWrapper = styled.figure`
   margin: 0;
@@ -57,20 +58,22 @@ const CharacterInfoBlock = styled.figcaption`
   }
 `;
 
-const Card = () => {
+const Card = ({ character }: { character: CharacterInfo }) => {
   return (
     <CardWrapper>
-      <CharacterImage src="/src/assets/rick.png" />
+      <CharacterImage src={character.image} />
       <CharacterInfoBlock>
         <p>
-          <span>Name: </span>Ricky kjbjbjh gbmgk gtkmlgkmt ogrog hbjhbjhbj
-          bhjbhj
+          <span>Name: </span>
+          {character.name}
         </p>
         <p>
-          <span>Status: </span>Alive
+          <span>Status: </span>
+          {character.status}
         </p>
         <p>
-          <span>Gender: </span>Male
+          <span>Gender: </span>
+          {character.gender}
         </p>
       </CharacterInfoBlock>
     </CardWrapper>
