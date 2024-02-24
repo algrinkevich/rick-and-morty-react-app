@@ -12,6 +12,10 @@ const CardsContainer = styled.section`
   margin: 3rem auto;
   width: 80%;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const Card = styled.figure`
@@ -24,6 +28,7 @@ const Card = styled.figure`
 
   &:hover {
     box-shadow: ${Effects.ActiveShadow};
+    cursor: pointer;
   }
 `;
 

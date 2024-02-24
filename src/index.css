@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap");
 
 * {
   box-sizing: border-box;
@@ -9,4 +9,22 @@ body {
   font-family: "Kode Mono", sans-serif;
   background-image: url("/src/assets/background.png");
   background-size: cover;
+}
+
+@media (max-width: 430px) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 1.2rem;
+  }
 }

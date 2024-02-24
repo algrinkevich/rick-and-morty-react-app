@@ -9,7 +9,7 @@ interface SearchFilterProps {
 const Select = styled.select`
   appearance: none;
   border: none;
-  font-size: 1rem;
+  font-size: inherit;
   font-family: inherit;
   background-color: ${Palette.BasicColor};
   border-radius: ${Borders.BasicRadius};

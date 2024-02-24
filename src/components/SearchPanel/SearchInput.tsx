@@ -5,12 +5,16 @@ import { Palette, Borders, Effects } from "../../style-variables";
 const SearchContainer = styled.div`
   margin-bottom: 2rem;
   position: relative;
-  min-width: 30%;
+  width: 100%;
+
+  @media (max-width: 639px) {
+    width: 90%;
+  }
 
   & .search-icon {
     position: absolute;
-    right: 1.1rem;
-    top: 1.1rem;
+    right: 6%;
+    top: 30%;
     font-size: 1.2rem;
     cursor: pointer;
   }
@@ -19,7 +23,7 @@ const SearchContainer = styled.div`
 const Search = styled.input`
   border-radius: ${Borders.BasicRadius};
   border: 4px solid ${Palette.BasicColor};
-  font-size: 1rem;
+  font-size: inherit;
   font-family: inherit;
   padding: 0.8rem 2.3rem 0.8rem 1rem;
   width: 100%;

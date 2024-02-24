@@ -7,7 +7,8 @@ const Controls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6vw;
+  width: fit-content;
+  margin: 2rem auto 0 auto;
 `;
 
 const SelectContainer = styled.div`
