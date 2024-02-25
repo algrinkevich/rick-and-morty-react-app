@@ -7,9 +7,8 @@ const CardWrapper = styled.figure`
   margin: 0;
   width: ${Sizes.CardWidth};
   height: 28rem;
-  background-color: #fff;
   border-radius: ${Borders.BasicRadius};
-  transition: box-shadow 0.3s ease-out;
+  transition: all 0.3s ease-out;
   // TODO: rework shadow to be inset, reduce image size for that
   box-shadow: ${Palette.BasicColor} 0px 0px 0px 2px;
   border: 2px solid ${Palette.DarkGreen};
@@ -20,6 +19,7 @@ const CardWrapper = styled.figure`
       ${Effects.ActiveShadow},
       ${Palette.BasicColor} 0px 0px 0px 2px;
     cursor: pointer;
+    transform: scale(1.05);
   }
 `;
 
@@ -34,8 +34,8 @@ const CharacterInfoBlock = styled.figcaption`
   height: 30%;
   background: repeating-linear-gradient(
     0deg,
-    ${Palette.BasicColor},
-    ${Palette.DarkGreen} 3px
+    ${Palette.BasicColor}80,
+    ${Palette.DarkGreen}80 3px
   );
   padding: 1rem;
 
@@ -44,6 +44,7 @@ const CharacterInfoBlock = styled.figcaption`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: ${Palette.BasicColor};
   }
 
   & p:first-child {
