@@ -1,7 +1,7 @@
 import { useEffect, useState, createContext } from "react";
+import axios, { AxiosError } from "axios";
 import {
   useInfiniteQuery,
-  DefaultError,
   InfiniteData,
   QueryKey,
 } from "@tanstack/react-query";
@@ -81,6 +81,9 @@ const CardsContainer = styled.section`
 
 const ErrorMessage = styled.h2`
   color: #fff;
+  min-width: 30%;
+  grid-column: span 2;
+  text-align: center;
 `;
 
 function App() {
@@ -90,22 +93,30 @@ function App() {
     null,
   );
 
-  const { status, data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery<
-    GetCharactersResponse,
-    DefaultError,
-    InfiniteData<GetCharactersResponse>,
-    QueryKey,
-    string
-  >({
-    queryKey: ["allCharacters", queryUrl],
-    initialPageParam: queryUrl,
-    queryFn: async ({ pageParam }) => {
-      const res = await fetch(pageParam);
-      return (await res.json()) as GetCharactersResponse;
-    },
-    getNextPageParam: (lastPage) => lastPage.info.next,
-  });
+  const { status, error, data, isFetchingNextPage, fetchNextPage } =
+    useInfiniteQuery<
+      GetCharactersResponse,
+      AxiosError,
+      InfiniteData<GetCharactersResponse>,
+      QueryKey,
+      string
+    >({
+      queryKey: ["allCharacters", queryUrl],
+      initialPageParam: queryUrl,
+      queryFn: async ({ pageParam }) => {
+        const { data } = await axios.get<GetCharactersResponse>(pageParam);
+        return data;
+      },
+      getNextPageParam: (lastPage) => lastPage.info.next,
+      retry: (failureCount, error) => {
+        if (error.response?.status === 404) {
+          return false;
+        }
+        return failureCount < 3;
+      },
+    });
   const { ref, inView } = useInView();
+  console.log(error);
 
   useEffect(() => {
     if (inView) {
@@ -139,7 +150,9 @@ function App() {
           <Loader />
         ) : status === "error" ? (
           <ErrorMessage>
-            {"Oops, cannot retrive data :( Please try again"}
+            {error.response?.status === 404
+              ? "No results found."
+              : "Oops, cannot retrive data :( Please try again."}
           </ErrorMessage>
         ) : (
           data.pages

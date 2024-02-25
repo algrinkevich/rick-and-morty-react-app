@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 
@@ -125,10 +126,9 @@ const CharacterInfoPopup = ({ onClose, id }: CharacterInfoPopupProps) => {
   const { status, data } = useQuery<CharacterDetaledInfo>({
     queryKey: ["characterInfo", id],
     queryFn: async () => {
-      const response = await fetch(
+      const { data } = await axios.get(
         `https://rickandmortyapi.com/api/character/${id}`,
       );
-      const data = await response.json();
       return data;
     },
   });

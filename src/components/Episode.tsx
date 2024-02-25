@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 
@@ -21,8 +22,7 @@ const Episode = ({ url }: EpisodeProps) => {
   const { status, data } = useQuery<EpisodeInfo>({
     queryKey: ["episodeInfo", url],
     queryFn: async () => {
-      const response = await fetch(url);
-      const data = await response.json();
+      const { data } = await axios.get(url);
       return data;
     },
   });
