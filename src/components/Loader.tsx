@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SpinnerImage from "../assets/spinner.png";
 
 const LoaderWrapper = styled.img`
   display: block;
@@ -17,7 +18,7 @@ const LoaderWrapper = styled.img`
 `;
 
 const Loader = () => {
-  return <LoaderWrapper src="../assets/spinner.png" />;
+  return <LoaderWrapper src={SpinnerImage} />;
 };
 
 export default Loader;

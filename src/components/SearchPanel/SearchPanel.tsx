@@ -2,8 +2,13 @@ import styled from "styled-components";
 
 import SearchInput from "./SearchInput";
 import SearchFilter from "./SearchFilter";
+import FilterOptions from "../../data/filters.ts";
 
-const Controls = styled.div`
+interface SearchPanelProps {
+  onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const SearchForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,17 +23,17 @@ const SelectContainer = styled.div`
   gap: 0.8rem;
 `;
 
-const SearchPanel = () => {
+const SearchPanel = ({ onSearch }: SearchPanelProps) => {
   return (
-    <Controls>
+    <SearchForm onSubmit={onSearch}>
       <SearchInput />
       <SelectContainer>
-        <SearchFilter title="Status" />
-        <SearchFilter title="Species" />
-        <SearchFilter title="Type" />
-        <SearchFilter title="Gender" />
+        <SearchFilter title="Status" options={FilterOptions.statuses} />
+        <SearchFilter title="Species" options={FilterOptions.species} />
+        <SearchFilter title="Type" options={FilterOptions.types} />
+        <SearchFilter title="Gender" options={FilterOptions.genders} />
       </SelectContainer>
-    </Controls>
+    </SearchForm>
   );
 };
 

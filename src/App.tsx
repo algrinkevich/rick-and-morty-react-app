@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, createContext } from "react";
 import {
   useInfiniteQuery,
   DefaultError,
@@ -13,6 +13,33 @@ import SearchPanel from "./components/SearchPanel/SearchPanel";
 import Card from "./components/Card";
 import Loader from "./components/Loader";
 import { Sizes } from "./style-variables";
+
+type SearchFilters = {
+  name?: string;
+  species?: string;
+  status?: string;
+  gender?: string;
+  type?: string;
+};
+
+const toQueryString = (filters: SearchFilters) => {
+  const clearedFilters: SearchFilters = {};
+  for (const [k, v] of Object.entries(filters)) {
+    if (v) {
+      clearedFilters[k as keyof SearchFilters] = v;
+    }
+  }
+  const searchParams = new URLSearchParams(clearedFilters);
+  return searchParams.toString();
+};
+
+export const SearchContext = createContext({
+  filters: {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setFilters: (_: SearchFilters) => {
+    return;
+  },
+});
 
 export interface CharacterInfo {
   id: number;
@@ -51,6 +78,10 @@ const ErrorMessage = styled.h2`
 `;
 
 function App() {
+  const [filters, setFilters] = useState({});
+  const queryUrl = `https://rickandmortyapi.com/api/character/?${toQueryString(filters)}`;
+  console.log(queryUrl, toQueryString(filters));
+
   const { status, data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery<
     GetCharactersResponse,
     DefaultError,
@@ -58,8 +89,8 @@ function App() {
     QueryKey,
     string
   >({
-    queryKey: ["allCharacters"],
-    initialPageParam: "https://rickandmortyapi.com/api/character",
+    queryKey: ["allCharacters", queryUrl],
+    initialPageParam: queryUrl,
     queryFn: async ({ pageParam }) => {
       const res = await fetch(pageParam);
       return (await res.json()) as GetCharactersResponse;
@@ -74,10 +105,19 @@ function App() {
     }
   }, [fetchNextPage, inView]);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const searchValue = e.currentTarget.search.value;
+    setFilters({ ...filters, name: searchValue });
+  };
+
   return (
     <>
       <Header />
-      <SearchPanel />
+      <SearchContext.Provider value={{ filters, setFilters }}>
+        <SearchPanel onSearch={handleSubmit} />
+      </SearchContext.Provider>
+
       <CardsContainer>
         {status === "pending" ? (
           <Loader />
@@ -95,7 +135,7 @@ function App() {
               <Card character={character} key={character.id} />
             ))
         )}
-        <span ref={ref}></span>
+        {data?.pages.length && <span ref={ref}></span>}
       </CardsContainer>
       {isFetchingNextPage && <Loader />}
     </>

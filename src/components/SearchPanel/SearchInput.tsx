@@ -10,15 +10,18 @@ const SearchContainer = styled.div`
   @media (max-width: 639px) {
     width: 90%;
   }
+`;
 
-  & .search-icon {
-    position: absolute;
-    right: 4%;
-    top: 30%;
-    font-size: 1.2rem;
-    color: ${Palette.GreyColor};
-    cursor: pointer;
-  }
+const SearchButton = styled.button`
+  position: absolute;
+  right: 4%;
+  top: 30%;
+  font-size: 1.2rem;
+  color: ${Palette.GreyColor};
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
 `;
 
 const Search = styled.input`
@@ -52,11 +55,11 @@ const Search = styled.input`
 const SearchInput = () => {
   return (
     <SearchContainer>
-      <Search type="search" placeholder="Enter a name..." />
-      <i
+      <Search type="search" placeholder="Enter a name..." name="search" />
+      <SearchButton
         className="fa-solid fa-magnifying-glass search-icon"
         title="Search"
-      ></i>
+      ></SearchButton>
     </SearchContainer>
   );
 };
