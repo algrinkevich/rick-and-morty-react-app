@@ -38,6 +38,14 @@ const Modal = styled.div`
   gap: 3rem;
   color: #fff;
   z-index: 2;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    flex-direction: column;
+    overflow-y: auto;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -45,6 +53,10 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+
+  @media (max-width: 767px) {
+    overflow-y: visible;
+  }
 `;
 
 const Image = styled.img`
