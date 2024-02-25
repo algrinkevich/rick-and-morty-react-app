@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 
 import { Palette, Borders } from "../../style-variables";
-import { SearchContext, SearchFilters } from "../../App";
+import { SearchContext, SearchFilters } from "../../pages/Search";
 
 interface SearchFilterProps {
   title: string;

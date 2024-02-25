@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { Borders, Palette } from "../style-variables";
 import Loader from "./Loader";
-import { CharacterInfo } from "../App";
+import { CharacterInfo } from "../pages/Search";
 import Episode from "./Episode";
 
 interface CharacterDetaledInfo extends CharacterInfo {

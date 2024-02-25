@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Palette, Borders, Effects } from "../../style-variables";
 import { useContext } from "react";
-import { SearchContext } from "../../App";
+import { SearchContext } from "../../pages/Search";
 
 const SearchContainer = styled.div`
   margin-bottom: 2rem;
