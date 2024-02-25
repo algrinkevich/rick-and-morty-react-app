@@ -25,7 +25,7 @@ const ClearButton = () => {
   const { setFilters } = useContext(SearchContext);
 
   return (
-    <ClearButtonWrapper onClick={() => setFilters({})}>
+    <ClearButtonWrapper type="button" onClick={() => setFilters({})}>
       X Clear
     </ClearButtonWrapper>
   );

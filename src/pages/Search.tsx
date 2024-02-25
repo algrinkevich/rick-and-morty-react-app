@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import {
   useInfiniteQuery,
@@ -87,11 +88,26 @@ const ErrorMessage = styled.h2`
 `;
 
 function Search() {
-  const [filters, setFilters] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParamsObject = Object.fromEntries(searchParams.entries());
+  const [filters, setFilters] = useState(searchParamsObject);
   const queryUrl = `https://rickandmortyapi.com/api/character/?${toQueryString(filters)}`;
   const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
-    null,
+    +searchParamsObject.character,
   );
+  useEffect(() => {
+    setSearchParams(filters);
+  }, [filters, setSearchParams]);
+
+  useEffect(() => {
+    const newSearchParams = { ...searchParamsObject };
+    if (selectedCharacter) {
+      newSearchParams.character = `${selectedCharacter}`;
+    } else {
+      delete newSearchParams["character"];
+    }
+    setSearchParams(newSearchParams);
+  }, [selectedCharacter, setSearchParams]);
 
   const { status, error, data, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery<
@@ -124,6 +140,7 @@ function Search() {
   }, [fetchNextPage, inView]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("submit is called");
     e.preventDefault();
     const searchValue = e.currentTarget.search.value;
     setFilters({ ...filters, name: searchValue });
