@@ -57,7 +57,7 @@ const SearchInput = () => {
     <SearchContainer>
       <Search type="search" placeholder="Enter a name..." name="search" />
       <SearchButton
-        className="fa-solid fa-magnifying-glass search-icon"
+        className="fa-solid fa-magnifying-glass"
         title="Search"
       ></SearchButton>
     </SearchContainer>

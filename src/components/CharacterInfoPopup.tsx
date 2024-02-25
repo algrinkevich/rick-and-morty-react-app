@@ -93,6 +93,21 @@ const PopupLoader = styled(Loader)`
   margin: auto auto;
 `;
 
+const CloseButton = styled.button`
+  font-size: 1.4rem;
+  position: absolute;
+  right: 1.3rem;
+  top: 0.9rem;
+  color: ${Palette.GreyColor};
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+  }
+`;
+
 const CharacterInfoPopup = ({ onClose, id }: CharacterInfoPopupProps) => {
   const { status, data } = useQuery<CharacterDetaledInfo>({
     queryKey: ["characterInfo", id],
@@ -158,6 +173,10 @@ const CharacterInfoPopup = ({ onClose, id }: CharacterInfoPopupProps) => {
             </EpisodesContainer>
           </>
         )}
+        <CloseButton
+          onClick={onClose}
+          className="fa-solid fa-xmark"
+        ></CloseButton>
       </Modal>
     </>
   );
