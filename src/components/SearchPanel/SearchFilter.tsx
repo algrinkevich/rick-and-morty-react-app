@@ -46,7 +46,6 @@ const SearchFilter = ({ title, options }: SearchFilterProps) => {
   const [selectedValue, setSelectedValue] = useState(title);
   const { filters, setFilters } = useContext(SearchContext);
 
-  console.log({ selectedValue });
   return (
     <Select
       onChange={(e) => {

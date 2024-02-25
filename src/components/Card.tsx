@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { Borders, Palette, Sizes, Effects } from "../style-variables";
 import { CharacterInfo } from "../App";
 
+interface CardProps {
+  character: CharacterInfo;
+  onClick: () => void;
+}
+
 const CardWrapper = styled.figure`
   margin: 0;
   width: ${Sizes.CardWidth};
@@ -59,9 +64,9 @@ const CharacterInfoBlock = styled.figcaption`
   }
 `;
 
-const Card = ({ character }: { character: CharacterInfo }) => {
+const Card = ({ character, onClick }: CardProps) => {
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick}>
       <CharacterImage src={character.image} />
       <CharacterInfoBlock>
         <p title={character.name}>

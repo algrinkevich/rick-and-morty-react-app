@@ -1,0 +1,166 @@
+import { useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
+
+import { Borders, Palette } from "../style-variables";
+import Loader from "./Loader";
+import { CharacterInfo } from "../App";
+import Episode from "./Episode";
+
+interface CharacterDetaledInfo extends CharacterInfo {
+  species: string;
+  type: string;
+  episode: string[];
+  origin: {
+    name: string;
+  };
+  location: {
+    name: string;
+  };
+}
+
+interface CharacterInfoPopupProps {
+  onClose: () => void;
+  id: number;
+}
+
+const Modal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(350px, 70vw, 900px);
+  max-height: 90%;
+  min-height: 60%;
+  border-radius: ${Borders.BasicRadius};
+  padding: 2.5rem;
+  background-color: ${Palette.SecondaryColor};
+  display: flex;
+  gap: 3rem;
+  color: #fff;
+  z-index: 2;
+`;
+
+const InfoContainer = styled.div`
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+`;
+
+const Image = styled.img`
+  width: 100%;
+`;
+
+const Details = styled.div`
+  padding-block: 1rem;
+  & span {
+    font-weight: 700;
+  }
+  & p {
+    margin: 0 0 0.5rem 0;
+  }
+`;
+
+const EpisodesContainer = styled.div`
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const EpisodesTitle = styled.h2`
+  margin: 0;
+  text-align: center;
+`;
+
+const EpisodesBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: #000000c0;
+  z-index: 2;
+`;
+
+const PopupLoader = styled(Loader)`
+  width: 200px;
+  height: 200px;
+  margin: auto auto;
+`;
+
+const CharacterInfoPopup = ({ onClose, id }: CharacterInfoPopupProps) => {
+  const { status, data } = useQuery<CharacterDetaledInfo>({
+    queryKey: ["characterInfo", id],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/${id}`,
+      );
+      const data = await response.json();
+      return data;
+    },
+  });
+
+  return (
+    <>
+      <Overlay onClick={onClose} />
+      <Modal>
+        {status === "pending" ? (
+          <PopupLoader />
+        ) : status === "error" ? (
+          <p>{"Oops, cannot retrive data :( Please try again"}</p>
+        ) : (
+          <>
+            <InfoContainer>
+              <Image src={data.image} key={data.image} />
+              <Details>
+                <p>
+                  <span>Name: </span>
+                  {data.name}
+                </p>
+                <p>
+                  <span>Status: </span>
+                  {data.status}
+                </p>
+                <p>
+                  <span>Species: </span>
+                  {data.species}
+                </p>
+                <p>
+                  <span>Type: </span>
+                  {data.type}
+                </p>
+                <p>
+                  <span>Gender: </span>
+                  {data.gender}
+                </p>
+                <p>
+                  <span>Origin: </span>
+                  {data.origin.name}
+                </p>
+                <p>
+                  <span>Location: </span>
+                  {data.location.name}
+                </p>
+              </Details>
+            </InfoContainer>
+            <EpisodesContainer>
+              <EpisodesTitle>Episodes</EpisodesTitle>
+              <EpisodesBlock>
+                {data.episode.map((url) => (
+                  <Episode url={url} key={url} />
+                ))}
+              </EpisodesBlock>
+            </EpisodesContainer>
+          </>
+        )}
+      </Modal>
+    </>
+  );
+};
+
+export default CharacterInfoPopup;

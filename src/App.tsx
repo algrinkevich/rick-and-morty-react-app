@@ -10,6 +10,7 @@ import styled from "styled-components";
 
 import Header from "./components/Header";
 import SearchPanel from "./components/SearchPanel/SearchPanel";
+import CharacterInfoPopup from "./components/CharacterInfoPopup";
 import Card from "./components/Card";
 import Loader from "./components/Loader";
 import { Sizes } from "./style-variables";
@@ -80,7 +81,9 @@ const ErrorMessage = styled.h2`
 function App() {
   const [filters, setFilters] = useState({});
   const queryUrl = `https://rickandmortyapi.com/api/character/?${toQueryString(filters)}`;
-  console.log(queryUrl, toQueryString(filters));
+  const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
+    null,
+  );
 
   const { status, data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery<
     GetCharactersResponse,
@@ -118,6 +121,14 @@ function App() {
         <SearchPanel onSearch={handleSubmit} />
       </SearchContext.Provider>
 
+      {selectedCharacter && (
+        <CharacterInfoPopup
+          id={selectedCharacter}
+          key={selectedCharacter}
+          onClose={() => setSelectedCharacter(null)}
+        />
+      )}
+
       <CardsContainer>
         {status === "pending" ? (
           <Loader />
@@ -132,7 +143,11 @@ function App() {
               [] as CharacterInfo[],
             )
             .map((character) => (
-              <Card character={character} key={character.id} />
+              <Card
+                character={character}
+                key={character.id}
+                onClick={() => setSelectedCharacter(character.id)}
+              />
             ))
         )}
         {data?.pages.length && <span ref={ref}></span>}

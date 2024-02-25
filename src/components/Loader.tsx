@@ -17,8 +17,8 @@ const LoaderWrapper = styled.img`
   }
 `;
 
-const Loader = () => {
-  return <LoaderWrapper src={SpinnerImage} />;
+const Loader = ({ className }: { className?: string }) => {
+  return <LoaderWrapper className={className} src={SpinnerImage} />;
 };
 
 export default Loader;
