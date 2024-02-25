@@ -21,6 +21,10 @@ const SelectContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.8rem;
+
+  @media (max-width: 639px) {
+    width: 90%;
+  }
 `;
 
 const SearchPanel = ({ onSearch }: SearchPanelProps) => {

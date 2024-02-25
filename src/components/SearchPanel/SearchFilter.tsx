@@ -26,6 +26,7 @@ const Select = styled.select`
   background-size: 1rem, 100%;
   box-shadow: inset ${Palette.DarkGreen} 0px 0px 0px 2px;
   color: #fff;
+  width: 9rem;
 
   &:focus {
     outline: none;

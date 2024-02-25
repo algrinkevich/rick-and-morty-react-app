@@ -43,6 +43,7 @@ const Modal = styled.div`
     width: 100%;
     height: 100%;
     max-height: 100%;
+    border-radius: 0;
     flex-direction: column;
     overflow-y: auto;
   }
