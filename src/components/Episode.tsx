@@ -27,16 +27,20 @@ const Episode = ({ url }: EpisodeProps) => {
     },
   });
 
-  if (status === "pending") return "Loading...";
-
-  if (status === "error") return "Oops, something went wrong :(";
-
   return (
     <EpisodeBlock>
-      <p>
-        {data.episode}: {data.name}
-      </p>
-      <p>{data.air_date}</p>
+      {status === "pending" ? (
+        <p>Loading...</p>
+      ) : status === "error" ? (
+        <p>Cannot load episode data</p>
+      ) : (
+        <>
+          <p>
+            {data.episode}: {data.name}
+          </p>
+          <p>{data.air_date}</p>
+        </>
+      )}
     </EpisodeBlock>
   );
 };
