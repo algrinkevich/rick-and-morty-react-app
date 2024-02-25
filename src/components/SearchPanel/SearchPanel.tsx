@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SearchInput from "./SearchInput";
 import SearchFilter from "./SearchFilter";
 import FilterOptions from "../../data/filters.ts";
+import ClearButton from "./ClearButton.tsx";
 
 interface SearchPanelProps {
   onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -32,10 +33,27 @@ const SearchPanel = ({ onSearch }: SearchPanelProps) => {
     <SearchForm onSubmit={onSearch}>
       <SearchInput />
       <SelectContainer>
-        <SearchFilter title="Status" options={FilterOptions.statuses} />
-        <SearchFilter title="Species" options={FilterOptions.species} />
-        <SearchFilter title="Type" options={FilterOptions.types} />
-        <SearchFilter title="Gender" options={FilterOptions.genders} />
+        <SearchFilter
+          filterKey="status"
+          title="Status"
+          options={FilterOptions.statuses}
+        />
+        <SearchFilter
+          filterKey="species"
+          title="Species"
+          options={FilterOptions.species}
+        />
+        <SearchFilter
+          filterKey="type"
+          title="Type"
+          options={FilterOptions.types}
+        />
+        <SearchFilter
+          filterKey="gender"
+          title="Gender"
+          options={FilterOptions.genders}
+        />
+        <ClearButton />
       </SelectContainer>
     </SearchForm>
   );

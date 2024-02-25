@@ -15,7 +15,7 @@ import Card from "./components/Card";
 import Loader from "./components/Loader";
 import { Sizes } from "./style-variables";
 
-type SearchFilters = {
+export type SearchFilters = {
   name?: string;
   species?: string;
   status?: string;
@@ -34,7 +34,12 @@ const toQueryString = (filters: SearchFilters) => {
   return searchParams.toString();
 };
 
-export const SearchContext = createContext({
+interface ISearchContext {
+  filters: SearchFilters;
+  setFilters: (value: SearchFilters) => void;
+}
+
+export const SearchContext = createContext<ISearchContext>({
   filters: {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setFilters: (_: SearchFilters) => {

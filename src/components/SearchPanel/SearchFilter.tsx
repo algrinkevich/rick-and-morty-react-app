@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 
 import { Palette, Borders } from "../../style-variables";
-import { SearchContext } from "../../App";
+import { SearchContext, SearchFilters } from "../../App";
 
 interface SearchFilterProps {
   title: string;
   options: string[];
+  filterKey: keyof SearchFilters;
 }
 
 const Select = styled.select`
@@ -43,18 +44,18 @@ const Select = styled.select`
   }
 `;
 
-const SearchFilter = ({ title, options }: SearchFilterProps) => {
-  const [selectedValue, setSelectedValue] = useState(title);
+const SearchFilter = ({ title, options, filterKey }: SearchFilterProps) => {
   const { filters, setFilters } = useContext(SearchContext);
+  console.log("filters: ", filters);
 
   return (
     <Select
       onChange={(e) => {
-        setSelectedValue(e.target.value);
         setFilters({ ...filters, [title.toLowerCase()]: e.target.value });
       }}
+      value={filters[filterKey] || title}
     >
-      {selectedValue === title && <option value="">{title}</option>}
+      <option value="">{title}</option>
       {options.map((option) => (
         <option key={option}>{option}</option>
       ))}

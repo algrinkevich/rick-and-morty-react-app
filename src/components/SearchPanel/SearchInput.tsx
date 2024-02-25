@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import { Palette, Borders, Effects } from "../../style-variables";
+import { useContext } from "react";
+import { SearchContext } from "../../App";
 
 const SearchContainer = styled.div`
   margin-bottom: 2rem;
@@ -53,9 +55,17 @@ const Search = styled.input`
 `;
 
 const SearchInput = () => {
+  const { filters } = useContext(SearchContext);
+
   return (
     <SearchContainer>
-      <Search type="search" placeholder="Enter a name..." name="search" />
+      <Search
+        type="search"
+        placeholder="Enter a name..."
+        name="search"
+        key={filters.name}
+        defaultValue={filters.name}
+      />
       <SearchButton
         className="fa-solid fa-magnifying-glass"
         title="Search"
