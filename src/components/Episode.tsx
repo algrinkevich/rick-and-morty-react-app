@@ -2,14 +2,10 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 
+import { EpisodeInfo } from "../types";
+
 interface EpisodeProps {
   url: string;
-}
-
-interface EpisodeInfo {
-  name: string;
-  air_date: string;
-  episode: string;
 }
 
 const EpisodeBlock = styled.div`

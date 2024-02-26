@@ -15,14 +15,12 @@ import CharacterInfoPopup from "../components/CharacterInfoPopup";
 import Card from "../components/Card";
 import Loader from "../components/Loader";
 import { Sizes } from "../style-variables";
-
-export type SearchFilters = {
-  name?: string;
-  species?: string;
-  status?: string;
-  gender?: string;
-  type?: string;
-};
+import {
+  CharacterInfo,
+  GetCharactersResponse,
+  ISearchContext,
+  SearchFilters,
+} from "../types";
 
 const toQueryString = (filters: SearchFilters) => {
   const clearedFilters: SearchFilters = {};
@@ -35,11 +33,6 @@ const toQueryString = (filters: SearchFilters) => {
   return searchParams.toString();
 };
 
-interface ISearchContext {
-  filters: SearchFilters;
-  setFilters: (value: SearchFilters) => void;
-}
-
 export const SearchContext = createContext<ISearchContext>({
   filters: {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -47,24 +40,6 @@ export const SearchContext = createContext<ISearchContext>({
     return;
   },
 });
-
-export interface CharacterInfo {
-  id: number;
-  name: string;
-  status: string;
-  gender: string;
-  image: string;
-}
-
-interface GetCharactersResponse {
-  results: CharacterInfo[];
-  info: {
-    pages: number;
-    count: number;
-    next: string | null;
-    prev: string | null;
-  };
-}
 
 const CardsContainer = styled.section`
   display: grid;
