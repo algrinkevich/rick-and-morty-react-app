@@ -71,7 +71,7 @@ const CardsContainer = styled.section`
   grid-template-columns: repeat(auto-fit, ${Sizes.CardWidth});
   grid-template-rows: auto;
   grid-gap: 2rem;
-  margin: 3rem auto;
+  margin: 3rem auto 0 auto;
   width: 80%;
   justify-content: center;
 
@@ -87,13 +87,18 @@ const ErrorMessage = styled.h2`
   text-align: center;
 `;
 
+const InfiniteScrollAnchor = styled.div`
+  grid-column-start: 1;
+  height: 1px;
+`;
+
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams.entries());
   const [filters, setFilters] = useState(searchParamsObject);
   const queryUrl = `https://rickandmortyapi.com/api/character/?${toQueryString(filters)}`;
   const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
-    +searchParamsObject.character,
+    searchParamsObject.character ? +searchParamsObject.character : null,
   );
   useEffect(() => {
     setSearchParams(filters);
@@ -184,7 +189,9 @@ function Search() {
               />
             ))
         )}
-        {data?.pages.length && <span ref={ref}></span>}
+        {data?.pages.length && (
+          <InfiniteScrollAnchor ref={ref}></InfiniteScrollAnchor>
+        )}
       </CardsContainer>
       {isFetchingNextPage && <Loader />}
     </>

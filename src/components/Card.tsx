@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Borders, Palette, Sizes, Effects } from "../style-variables";
-import { CharacterInfo } from "../App";
+import { CharacterInfo } from "../pages/Search";
 
 interface CardProps {
   character: CharacterInfo;
