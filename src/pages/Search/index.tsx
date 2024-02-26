@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import {
@@ -19,7 +19,12 @@ import {
   SearchFilters,
 } from "../../types";
 import { SearchContext } from "../../contexts/Search";
-import { CardsContainer, ErrorMessage, InfiniteScrollAnchor } from "./styles";
+import {
+  CardsContainer,
+  ErrorMessage,
+  InfiniteScrollAnchor,
+} from "../../components/CardsView/styles";
+import CardsView from "../../components/CardsView";
 
 const toQueryString = (filters: SearchFilters) => {
   const clearedFilters: SearchFilters = {};
@@ -37,6 +42,9 @@ function Search() {
   const searchParamsObject = Object.fromEntries(searchParams.entries());
   const [filters, setFilters] = useState(searchParamsObject);
   const queryUrl = `https://rickandmortyapi.com/api/character/?${toQueryString(filters)}`;
+  const defaultCharacter = searchParamsObject.character
+    ? +searchParamsObject.character
+    : null;
   const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
     searchParamsObject.character ? +searchParamsObject.character : null,
   );
@@ -76,19 +84,21 @@ function Search() {
         return failureCount < 3;
       },
     });
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
-  }, [fetchNextPage, inView]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const searchValue = e.currentTarget.search.value;
     setFilters({ ...filters, name: searchValue });
   };
+
+  const characters = useMemo(() => {
+    return (
+      data?.pages.reduce(
+        (acc, page) => [...acc, ...page.results],
+        [] as CharacterInfo[],
+      ) || []
+    );
+  }, [data?.pages]);
 
   return (
     <>
@@ -104,34 +114,14 @@ function Search() {
           onClose={() => setSelectedCharacter(null)}
         />
       )}
+      <CardsView
+        status={status}
+        errorStatus={error?.response?.status}
+        characters={characters}
+        onPageEnd={fetchNextPage}
+        defaultCharacter={defaultCharacter}
+      />
 
-      <CardsContainer>
-        {status === "pending" ? (
-          <Loader />
-        ) : status === "error" ? (
-          <ErrorMessage>
-            {error.response?.status === 404
-              ? "No results found."
-              : "Oops, cannot retrive data :( Please try again."}
-          </ErrorMessage>
-        ) : (
-          data.pages
-            .reduce(
-              (acc, page) => [...acc, ...page.results],
-              [] as CharacterInfo[],
-            )
-            .map((character) => (
-              <Card
-                character={character}
-                key={character.id}
-                onClick={() => setSelectedCharacter(character.id)}
-              />
-            ))
-        )}
-        {data?.pages.length && (
-          <InfiniteScrollAnchor ref={ref}></InfiniteScrollAnchor>
-        )}
-      </CardsContainer>
       {isFetchingNextPage && <Loader />}
     </>
   );
