@@ -9,7 +9,6 @@ import { GetCharactersResponse, SearchFilters } from "../types";
 const URL = "https://rickandmortyapi.com/api/character";
 
 const useCharacters = (filters: SearchFilters) => {
-  // { status, error, data, isFetchingNextPage, fetchNextPage }
   const queryUrl = `${URL}/?${toQueryString(filters)}`;
   return useInfiniteQuery<
     GetCharactersResponse,
