@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { SearchFilters } from "../types";
-
 import _ from "lodash";
+
+import { SearchFilters } from "../types";
 
 interface RickMortySearchParams {
   filters: SearchFilters;

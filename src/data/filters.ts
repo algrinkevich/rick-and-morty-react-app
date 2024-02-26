@@ -17,7 +17,6 @@ const data: {
     "Disease",
   ],
   types: [
-    "",
     "Genetic experiment",
     "Superhuman (Ghost trains summoner)",
     "Parasite",

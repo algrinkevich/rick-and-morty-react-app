@@ -1,10 +1,10 @@
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import Loader from "../Loader";
 import { CharacterInfo } from "../../types";
 import { CardsContainer, ErrorMessage, InfiniteScrollAnchor } from "./styles";
 import Card from "../Card";
-import { useEffect } from "react";
 
 interface CardsViewProps {
   status: "pending" | "error" | "success";

@@ -1,8 +1,21 @@
-import styled from "styled-components";
-import { blinkScreen } from "../../../styles/animations";
+import styled, { keyframes } from "styled-components";
+import {
+  blinkScreenKeyFrameMiddleGradient,
+  blinkScreenKeyFrameStartEndGradient,
+} from "../../../styles/animations";
 import { Palette, Borders } from "../../../styles/variables";
 
 const selectArrowUrl = `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`;
+
+const blinkScreenFilter = keyframes`
+    0%,
+    100% {
+      background-image: ${selectArrowUrl}, ${blinkScreenKeyFrameStartEndGradient};
+    }
+    50% {
+      background-image: ${selectArrowUrl}, ${blinkScreenKeyFrameMiddleGradient};
+    }
+`;
 
 export const Select = styled.select`
   appearance: none;
@@ -30,7 +43,7 @@ export const Select = styled.select`
   }
 
   &:hover {
-    animation: ${blinkScreen} 0.2s infinite;
+    animation: ${blinkScreenFilter} 0.2s infinite;
   }
 
   &:active {
