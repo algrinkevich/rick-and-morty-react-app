@@ -9,7 +9,7 @@ export const ClearButtonWrapper = styled.button`
   font-size: inherit;
   font-family: inherit;
   color: #fff;
-  padding: 0.6rem 1rem 0.6rem 1rem;
+  padding: 0.6rem 2.3rem;
   transition: box-shadow 0.3s ease-out;
   background: repeating-linear-gradient(
     0deg,
