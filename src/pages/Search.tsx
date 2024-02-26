@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import {
@@ -15,12 +15,8 @@ import CharacterInfoPopup from "../components/CharacterInfoPopup";
 import Card from "../components/Card";
 import Loader from "../components/Loader";
 import { Sizes } from "../style-variables";
-import {
-  CharacterInfo,
-  GetCharactersResponse,
-  ISearchContext,
-  SearchFilters,
-} from "../types";
+import { CharacterInfo, GetCharactersResponse, SearchFilters } from "../types";
+import { SearchContext } from "../contexts/Search";
 
 const toQueryString = (filters: SearchFilters) => {
   const clearedFilters: SearchFilters = {};
@@ -32,14 +28,6 @@ const toQueryString = (filters: SearchFilters) => {
   const searchParams = new URLSearchParams(clearedFilters);
   return searchParams.toString();
 };
-
-export const SearchContext = createContext<ISearchContext>({
-  filters: {},
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setFilters: (_: SearchFilters) => {
-    return;
-  },
-});
 
 const CardsContainer = styled.section`
   display: grid;

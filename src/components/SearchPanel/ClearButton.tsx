@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 
 import { Borders, Palette } from "../../style-variables";
-import { SearchContext } from "../../pages/Search";
+import { SearchContext } from "../../contexts/Search";
 
 const ClearButtonWrapper = styled.button`
   border-radius: ${Borders.BasicRadius};
