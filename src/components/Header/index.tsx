@@ -1,9 +1,10 @@
 import { HeaderContainer, Logo } from "./styles";
+import LogoImg from "../../assets/logo.svg";
 
 const Header = () => {
   return (
     <HeaderContainer>
-      <Logo src="/src/assets/logo.svg" />
+      <Logo src={LogoImg} />
     </HeaderContainer>
   );
 };
