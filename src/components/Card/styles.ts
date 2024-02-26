@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Borders, Palette, Sizes, Effects } from "../../style-variables";
+import { blinkScreen } from "../../styles/animations";
+import { Borders, Palette, Sizes, Effects } from "../../styles/variables";
 
 export const CardWrapper = styled.figure`
   margin: 0;
@@ -17,6 +18,10 @@ export const CardWrapper = styled.figure`
       ${Palette.BasicColor} 0px 0px 0px 2px;
     cursor: pointer;
     transform: scale(1.05);
+  }
+
+  &:hover > figcaption {
+    animation: ${blinkScreen} 0.2s infinite;
   }
 `;
 

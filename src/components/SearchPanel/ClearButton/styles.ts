@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Borders, Palette } from "../../../style-variables";
+import { blinkScreen } from "../../../styles/animations";
+import { Borders, Palette } from "../../../styles/variables";
 
 export const ClearButtonWrapper = styled.button`
   border-radius: ${Borders.BasicRadius};
@@ -16,4 +17,8 @@ export const ClearButtonWrapper = styled.button`
     ${Palette.DarkGreen}80 3px
   );
   cursor: pointer;
+
+  &:hover {
+    animation: ${blinkScreen} 0.2s infinite;
+  }
 `;

@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Palette, Borders, Effects } from "../../../style-variables";
+import { blinkScreen } from "../../../styles/animations";
+import { Palette, Borders, Effects } from "../../../styles/variables";
 
 export const SearchContainer = styled.div`
   margin-bottom: 2rem;
   position: relative;
-  width: 100%;
+  width: 60%;
 
   @media (max-width: 639px) {
     width: 90%;
@@ -36,6 +37,9 @@ export const Search = styled.input`
     ${Palette.SecondaryColor},
     #000 3px
   );
+  &:focus + ${SearchButton} {
+    color: #fff;
+  }
 
   &::-webkit-search-cancel-button {
     display: none;
@@ -46,5 +50,10 @@ export const Search = styled.input`
     box-shadow:
       ${Effects.ActiveShadow},
       inset ${Palette.DarkGreen} 0px 0px 0px 2px;
+    animation: ${blinkScreen} 0.2s infinite;
+
+    &::placeholder {
+      color: transparent;
+    }
   }
 `;

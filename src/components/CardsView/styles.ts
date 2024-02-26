@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Sizes } from "../../style-variables";
+import { Sizes } from "../../styles/variables";
 
 export const CardsContainer = styled.section`
   display: grid;

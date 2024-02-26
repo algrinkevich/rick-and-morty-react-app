@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Borders, Palette } from "../../style-variables";
+import { Borders, Palette } from "../../styles/variables";
 import Loader from "../Loader";
 
 export const Modal = styled.div`
@@ -41,6 +41,8 @@ export const Modal = styled.div`
     width: 100%;
     height: 100%;
     max-height: 100%;
+    border: none;
+    box-shadow: none;
     border-radius: 0;
     flex-direction: column;
     overflow-y: auto;
