@@ -31,6 +31,7 @@ function Search() {
       ) || []
     );
   }, [data?.pages]);
+  console.log("search re-render", characters.length);
 
   return (
     <>

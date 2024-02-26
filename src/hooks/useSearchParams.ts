@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SearchFilters } from "../types";
 
+import _ from "lodash";
+
 interface RickMortySearchParams {
   filters: SearchFilters;
   setFilters: (arg: SearchFilters) => void;
@@ -19,19 +21,43 @@ const useRickMortySearchParams = (): RickMortySearchParams => {
   const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
     defaultCharacter,
   );
-  useEffect(() => {
-    setSearchParams(filters);
-  }, [filters, setSearchParams]);
+  const comparableFilters = JSON.stringify(filters);
+  const comparableSearchFiltersParams = JSON.stringify(
+    _.omit(searchParamsObject, ["character"]),
+  );
 
   useEffect(() => {
-    const newSearchParams = { ...searchParamsObject };
-    if (selectedCharacter) {
-      newSearchParams.character = `${selectedCharacter}`;
-    } else {
-      delete newSearchParams["character"];
+    if (comparableFilters !== comparableSearchFiltersParams) {
+      const extraCharacter: Record<string, string> = selectedCharacter
+        ? { character: `${selectedCharacter}` }
+        : {};
+      setSearchParams({
+        ..._.omit(filters, ["character"]),
+        ...extraCharacter,
+      });
     }
-    setSearchParams(newSearchParams);
-  }, [selectedCharacter, setSearchParams]);
+  }, [
+    comparableFilters,
+    selectedCharacter,
+    comparableSearchFiltersParams,
+    setSearchParams,
+  ]);
+
+  const searchParamsCharacter = searchParamsObject.character
+    ? +searchParamsObject.character
+    : null;
+
+  useEffect(() => {
+    if (selectedCharacter !== searchParamsCharacter) {
+      const newSearchParams = { ...searchParamsObject };
+      if (selectedCharacter) {
+        newSearchParams.character = `${selectedCharacter}`;
+      } else {
+        delete newSearchParams["character"];
+      }
+      setSearchParams(newSearchParams);
+    }
+  }, [selectedCharacter, searchParamsCharacter, setSearchParams]);
 
   return { filters, setFilters, selectedCharacter, setSelectedCharacter };
 };
