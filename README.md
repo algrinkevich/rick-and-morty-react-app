@@ -1,30 +1,24 @@
-# React + TypeScript + Vite
+# Rick and Morty react app
+The app for searching and filtering Rick and Morty characters by utilising [The Rick and Morty API
+](https://rickandmortyapi.com/).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/algrinkevich/rick-and-morty-react-app/assets/8752900/5f712725-19f8-455a-a8dd-816f76833d53)
 
-Currently, two official plugins are available:
+## How to start the project locally
+1. Clone repository: `git clone https://github.com/algrinkevich/rick-and-morty-react-app.git`;
+2. Open directory: `cd rick-and-morty-react-app`;
+3. Install dependencies: `npm install`;
+4. Start the project: `npm run dev`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+1. View all characters;
+2. Search by name;
+3. Filter by status, species, type and gender;
+4. View characters details by clicking on a card;
+5. Shareable url: filters are saved in url.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Technologies
+1. Styled Components;
+2. React Query;
+3. React Router;
+4. React intersection observer (for infinite scroll).
