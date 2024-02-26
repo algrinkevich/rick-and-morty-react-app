@@ -12,9 +12,28 @@ export const Modal = styled.div`
   min-height: 60%;
   border-radius: ${Borders.BasicRadius};
   padding: 2.5rem;
-  background-color: ${Palette.SecondaryColor};
+  border: 2px solid ${Palette.BasicColor};
+  box-shadow: inset ${Palette.DarkGreen} 0px 0px 0px 2px;
+
+  background: repeating-linear-gradient(
+    0deg,
+    ${Palette.SecondaryColor},
+    #000 3px
+  );
+
+  animation: show-popup 0.5s ease-in;
+
+  @keyframes show-popup {
+    0% {
+      left: 100%;
+    }
+    100% {
+      left: 50%;
+    }
+  }
+
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   color: #fff;
   z-index: 2;
 
@@ -28,10 +47,13 @@ export const Modal = styled.div`
   }
 `;
 export const InfoContainer = styled.div`
-  flex: 2;
+  flex: 5;
   display: flex;
   flex-direction: column;
+  height: fit-content;
   overflow-y: auto;
+  border-radius: ${Borders.BasicRadius};
+  background-color: ${Palette.BasicColor}80;
 
   @media (max-width: 767px) {
     overflow-y: visible;
@@ -41,7 +63,7 @@ export const Image = styled.img`
   width: 100%;
 `;
 export const Details = styled.div`
-  padding-block: 1rem;
+  padding: 1.8rem;
   & span {
     font-weight: 700;
   }
@@ -50,7 +72,7 @@ export const Details = styled.div`
   }
 `;
 export const EpisodesContainer = styled.div`
-  flex: 3;
+  flex: 6;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -62,7 +84,7 @@ export const EpisodesTitle = styled.h2`
 export const EpisodesBlock = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.6rem;
   overflow-y: auto;
 `;
 export const Overlay = styled.div`

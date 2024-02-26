@@ -2,7 +2,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { EpisodeInfo } from "../../../types";
-import { EpisodeBlock } from "./styles";
+import { EpisodeBlock, EpisodeDelimeter } from "./styles";
 
 interface EpisodeProps {
   url: string;
@@ -29,6 +29,7 @@ const Episode = ({ url }: EpisodeProps) => {
             {data.episode}: {data.name}
           </p>
           <p>{data.air_date}</p>
+          <EpisodeDelimeter />
         </>
       )}
     </EpisodeBlock>
