@@ -49,7 +49,9 @@ const CardsView = ({
           />
         ))
       )}
-      <InfiniteScrollAnchor ref={ref}></InfiniteScrollAnchor>
+      {characters.length && (
+        <InfiniteScrollAnchor ref={ref}></InfiniteScrollAnchor>
+      )}
     </CardsContainer>
   );
 };
