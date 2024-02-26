@@ -6,12 +6,10 @@ import {
   InfiniteData,
   QueryKey,
 } from "@tanstack/react-query";
-import { useInView } from "react-intersection-observer";
 
 import Header from "../../components/Header";
 import SearchPanel from "../../components/SearchPanel";
 import CharacterInfoPopup from "../../components/CharacterInfoPopup";
-import Card from "../../components/Card";
 import Loader from "../../components/Loader";
 import {
   CharacterInfo,
@@ -19,11 +17,6 @@ import {
   SearchFilters,
 } from "../../types";
 import { SearchContext } from "../../contexts/Search";
-import {
-  CardsContainer,
-  ErrorMessage,
-  InfiniteScrollAnchor,
-} from "../../components/CardsView/styles";
 import CardsView from "../../components/CardsView";
 
 const toQueryString = (filters: SearchFilters) => {
@@ -46,7 +39,7 @@ function Search() {
     ? +searchParamsObject.character
     : null;
   const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
-    searchParamsObject.character ? +searchParamsObject.character : null,
+    defaultCharacter,
   );
   useEffect(() => {
     setSearchParams(filters);
@@ -119,7 +112,7 @@ function Search() {
         errorStatus={error?.response?.status}
         characters={characters}
         onPageEnd={fetchNextPage}
-        defaultCharacter={defaultCharacter}
+        onChangeCharacter={setSelectedCharacter}
       />
 
       {isFetchingNextPage && <Loader />}

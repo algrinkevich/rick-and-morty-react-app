@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { Sizes } from "../../style-variables";
 
-import { Sizes } from "../../style-variables";
-
 export const CardsContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, ${Sizes.CardWidth});

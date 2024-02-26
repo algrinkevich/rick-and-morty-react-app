@@ -4,19 +4,23 @@ import Loader from "../Loader";
 import { CharacterInfo } from "../../types";
 import { CardsContainer, ErrorMessage, InfiniteScrollAnchor } from "./styles";
 import Card from "../Card";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+interface CardsViewProps {
+  status: "pending" | "error" | "success";
+  errorStatus?: number;
+  characters: CharacterInfo[];
+  onPageEnd: () => void;
+  onChangeCharacter: (characterId: number) => void;
+}
 
 const CardsView = ({
   status,
   errorStatus,
   characters,
   onPageEnd,
-  defaultCharacter = null,
   onChangeCharacter,
-}) => {
-  const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
-    defaultCharacter,
-  );
+}: CardsViewProps) => {
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView) {
@@ -40,8 +44,7 @@ const CardsView = ({
             character={character}
             key={character.id}
             onClick={() => {
-              setSelectedCharacter(character.id);
-              onChangeCharacter(character.id);
+              +onChangeCharacter(character.id);
             }}
           />
         ))
