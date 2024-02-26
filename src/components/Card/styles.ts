@@ -7,7 +7,6 @@ export const CardWrapper = styled.figure`
   height: 28rem;
   border-radius: ${Borders.BasicRadius};
   transition: all 0.3s ease-out;
-  // TODO: rework shadow to be inset, reduce image size for that
   box-shadow: ${Palette.BasicColor} 0px 0px 0px 2px;
   border: 2px solid ${Palette.DarkGreen};
   overflow: hidden;

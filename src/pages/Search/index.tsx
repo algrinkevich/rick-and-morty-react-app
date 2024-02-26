@@ -9,7 +9,7 @@ import {
 import { useInView } from "react-intersection-observer";
 
 import Header from "../../components/Header";
-import SearchPanel from "../../components/SearchPanel/SearchPanel";
+import SearchPanel from "../../components/SearchPanel";
 import CharacterInfoPopup from "../../components/CharacterInfoPopup";
 import Card from "../../components/Card";
 import Loader from "../../components/Loader";

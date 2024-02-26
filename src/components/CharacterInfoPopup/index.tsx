@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import Episode from "../Episode";
+import Episode from "./Episode";
 import { CharacterDetaledInfo } from "../../types";
 import {
   Overlay,

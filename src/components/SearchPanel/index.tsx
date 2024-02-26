@@ -1,7 +1,7 @@
-import SearchInput from "../SearchInput/index.tsx";
-import SearchFilter from "../SearchFilter/index.tsx";
-import FilterOptions from "../../../data/filters.ts";
-import ClearButton from "../ClearButton/index.tsx";
+import SearchInput from "./SearchInput/index.tsx";
+import SearchFilter from "./SearchFilter/index.tsx";
+import FilterOptions from "../../data/filters.ts";
+import ClearButton from "./ClearButton/index.tsx";
 import { SearchForm, SelectContainer } from "./styles.ts";
 
 interface SearchPanelProps {

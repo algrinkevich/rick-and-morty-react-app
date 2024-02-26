@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import { EpisodeInfo } from "../../types";
+import { EpisodeInfo } from "../../../types";
 import { EpisodeBlock } from "./styles";
 
 interface EpisodeProps {
