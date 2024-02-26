@@ -49,7 +49,7 @@ const CardsView = ({
           />
         ))
       )}
-      {characters.length && (
+      {!!characters.length && (
         <InfiniteScrollAnchor ref={ref}></InfiniteScrollAnchor>
       )}
     </CardsContainer>
