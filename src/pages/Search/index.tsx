@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useMemo } from "react";
 
 import Header from "../../components/Header";
 import SearchPanel from "../../components/SearchPanel";
@@ -9,30 +8,11 @@ import { CharacterInfo } from "../../types";
 import { SearchContext } from "../../contexts/Search";
 import CardsView from "../../components/CardsView";
 import useCharacters from "../../hooks/useCharacters";
+import useRickMortySearchParams from "../../hooks/useSearchParams";
 
 function Search() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchParamsObject = Object.fromEntries(searchParams.entries());
-  const [filters, setFilters] = useState(searchParamsObject);
-  const defaultCharacter = searchParamsObject.character
-    ? +searchParamsObject.character
-    : null;
-  const [selectedCharacter, setSelectedCharacter] = useState<null | number>(
-    defaultCharacter,
-  );
-  useEffect(() => {
-    setSearchParams(filters);
-  }, [filters, setSearchParams]);
-
-  useEffect(() => {
-    const newSearchParams = { ...searchParamsObject };
-    if (selectedCharacter) {
-      newSearchParams.character = `${selectedCharacter}`;
-    } else {
-      delete newSearchParams["character"];
-    }
-    setSearchParams(newSearchParams);
-  }, [selectedCharacter, setSearchParams]);
+  const { filters, setFilters, selectedCharacter, setSelectedCharacter } =
+    useRickMortySearchParams();
 
   const { status, error, data, isFetchingNextPage, fetchNextPage } =
     useCharacters(filters);
