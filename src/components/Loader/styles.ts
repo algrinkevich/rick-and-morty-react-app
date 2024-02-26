@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import SpinnerImage from "../assets/spinner.png";
 
-const LoaderWrapper = styled.img`
+export const LoaderWrapper = styled.img`
   display: block;
   margin: 0 auto;
   width: clamp(100px, 20vw, 200px);
@@ -16,9 +15,3 @@ const LoaderWrapper = styled.img`
     }
   }
 `;
-
-const Loader = ({ className }: { className?: string }) => {
-  return <LoaderWrapper className={className} src={SpinnerImage} />;
-};
-
-export default Loader;

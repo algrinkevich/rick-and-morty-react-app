@@ -1,10 +1,7 @@
 import styled from "styled-components";
+import { Palette, Borders, Effects } from "../../../style-variables";
 
-import { Palette, Borders, Effects } from "../../style-variables";
-import { useContext } from "react";
-import { SearchContext } from "../../contexts/Search";
-
-const SearchContainer = styled.div`
+export const SearchContainer = styled.div`
   margin-bottom: 2rem;
   position: relative;
   width: 100%;
@@ -13,8 +10,7 @@ const SearchContainer = styled.div`
     width: 90%;
   }
 `;
-
-const SearchButton = styled.button`
+export const SearchButton = styled.button`
   position: absolute;
   right: 4%;
   top: 30%;
@@ -25,8 +21,7 @@ const SearchButton = styled.button`
   border: none;
   cursor: pointer;
 `;
-
-const Search = styled.input`
+export const Search = styled.input`
   border-radius: ${Borders.BasicRadius};
   border: 2px solid ${Palette.BasicColor};
   box-shadow: inset ${Palette.DarkGreen} 0px 0px 0px 2px;
@@ -53,25 +48,3 @@ const Search = styled.input`
       inset ${Palette.DarkGreen} 0px 0px 0px 2px;
   }
 `;
-
-const SearchInput = () => {
-  const { filters } = useContext(SearchContext);
-
-  return (
-    <SearchContainer>
-      <Search
-        type="search"
-        placeholder="Enter a name..."
-        name="search"
-        key={filters.name}
-        defaultValue={filters.name}
-      />
-      <SearchButton
-        className="fa-solid fa-magnifying-glass"
-        title="Search"
-      ></SearchButton>
-    </SearchContainer>
-  );
-};
-
-export default SearchInput;

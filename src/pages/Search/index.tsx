@@ -7,16 +7,19 @@ import {
   QueryKey,
 } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import styled from "styled-components";
 
-import Header from "../components/Header";
-import SearchPanel from "../components/SearchPanel/SearchPanel";
-import CharacterInfoPopup from "../components/CharacterInfoPopup";
-import Card from "../components/Card";
-import Loader from "../components/Loader";
-import { Sizes } from "../style-variables";
-import { CharacterInfo, GetCharactersResponse, SearchFilters } from "../types";
-import { SearchContext } from "../contexts/Search";
+import Header from "../../components/Header";
+import SearchPanel from "../../components/SearchPanel/SearchPanel";
+import CharacterInfoPopup from "../../components/CharacterInfoPopup";
+import Card from "../../components/Card";
+import Loader from "../../components/Loader";
+import {
+  CharacterInfo,
+  GetCharactersResponse,
+  SearchFilters,
+} from "../../types";
+import { SearchContext } from "../../contexts/Search";
+import { CardsContainer, ErrorMessage, InfiniteScrollAnchor } from "./styles";
 
 const toQueryString = (filters: SearchFilters) => {
   const clearedFilters: SearchFilters = {};
@@ -28,32 +31,6 @@ const toQueryString = (filters: SearchFilters) => {
   const searchParams = new URLSearchParams(clearedFilters);
   return searchParams.toString();
 };
-
-const CardsContainer = styled.section`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, ${Sizes.CardWidth});
-  grid-template-rows: auto;
-  grid-gap: 2rem;
-  margin: 3rem auto 0 auto;
-  width: 80%;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    width: 90%;
-  }
-`;
-
-const ErrorMessage = styled.h2`
-  color: #fff;
-  min-width: 30%;
-  grid-column: span 2;
-  text-align: center;
-`;
-
-const InfiniteScrollAnchor = styled.div`
-  grid-column-start: 1;
-  height: 1px;
-`;
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -108,7 +85,6 @@ function Search() {
   }, [fetchNextPage, inView]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("submit is called");
     e.preventDefault();
     const searchValue = e.currentTarget.search.value;
     setFilters({ ...filters, name: searchValue });

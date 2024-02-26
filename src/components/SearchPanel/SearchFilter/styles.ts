@@ -1,17 +1,7 @@
-import { useContext } from "react";
 import styled from "styled-components";
+import { Palette, Borders } from "../../../style-variables";
 
-import { Palette, Borders } from "../../style-variables";
-import { SearchContext } from "../../contexts/Search";
-import { SearchFilters } from "../../types";
-
-interface SearchFilterProps {
-  title: string;
-  options: string[];
-  filterKey: keyof SearchFilters;
-}
-
-const Select = styled.select`
+export const Select = styled.select`
   appearance: none;
   border: 2px solid ${Palette.BasicColor};
   font-size: inherit;
@@ -44,24 +34,3 @@ const Select = styled.select`
     color: #fff;
   }
 `;
-
-const SearchFilter = ({ title, options, filterKey }: SearchFilterProps) => {
-  const { filters, setFilters } = useContext(SearchContext);
-  console.log("filters: ", filters);
-
-  return (
-    <Select
-      onChange={(e) => {
-        setFilters({ ...filters, [title.toLowerCase()]: e.target.value });
-      }}
-      value={filters[filterKey] || title}
-    >
-      <option value="">{title}</option>
-      {options.map((option) => (
-        <option key={option}>{option}</option>
-      ))}
-    </Select>
-  );
-};
-
-export default SearchFilter;

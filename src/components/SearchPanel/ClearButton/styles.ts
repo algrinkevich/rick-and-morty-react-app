@@ -1,10 +1,7 @@
-import { useContext } from "react";
 import styled from "styled-components";
+import { Borders, Palette } from "../../../style-variables";
 
-import { Borders, Palette } from "../../style-variables";
-import { SearchContext } from "../../contexts/Search";
-
-const ClearButtonWrapper = styled.button`
+export const ClearButtonWrapper = styled.button`
   border-radius: ${Borders.BasicRadius};
   border: 2px solid ${Palette.BasicColor};
   box-shadow: inset ${Palette.DarkGreen} 0px 0px 0px 2px;
@@ -20,15 +17,3 @@ const ClearButtonWrapper = styled.button`
   );
   cursor: pointer;
 `;
-
-const ClearButton = () => {
-  const { setFilters } = useContext(SearchContext);
-
-  return (
-    <ClearButtonWrapper type="button" onClick={() => setFilters({})}>
-      X Clear
-    </ClearButtonWrapper>
-  );
-};
-
-export default ClearButton;
