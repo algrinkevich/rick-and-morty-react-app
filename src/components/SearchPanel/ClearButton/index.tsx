@@ -8,7 +8,7 @@ const ClearButton = () => {
 
   return (
     <ClearButtonWrapper type="button" onClick={() => setFilters({})}>
-      X Clear
+      <span>x</span> Clear
     </ClearButtonWrapper>
   );
 };

@@ -10,7 +10,7 @@ export enum Borders {
 }
 
 export enum Sizes {
-  CardWidth = "14rem",
+  CardWidth = "300px",
 }
 
 export enum Effects {

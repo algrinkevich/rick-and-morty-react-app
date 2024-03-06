@@ -9,7 +9,12 @@ interface CardProps {
 const Card = ({ character, onClick }: CardProps) => {
   return (
     <CardWrapper onClick={onClick}>
-      <CharacterImage src={character.image} />
+      <CharacterImage
+        src={character.image}
+        width={300}
+        height={300}
+        alt={character.name}
+      />
       <CharacterInfoBlock>
         <p title={character.name}>
           <span>Name: </span>
