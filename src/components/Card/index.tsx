@@ -14,6 +14,7 @@ const Card = ({ character, onClick }: CardProps) => {
         width={300}
         height={300}
         alt={character.name}
+        loading="lazy"
       />
       <CharacterInfoBlock>
         <p title={character.name}>

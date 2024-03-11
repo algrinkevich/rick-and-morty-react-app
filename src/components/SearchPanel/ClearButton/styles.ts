@@ -13,8 +13,8 @@ export const ClearButtonWrapper = styled.button`
   transition: box-shadow 0.3s ease-out;
   background: repeating-linear-gradient(
     0deg,
-    ${Palette.SecondaryColor},
-    #000 3px
+    ${Palette.BasicColor}80,
+    ${Palette.DarkGreen}80 3px
   );
   cursor: pointer;
 

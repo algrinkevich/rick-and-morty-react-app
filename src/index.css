@@ -8,6 +8,8 @@ body {
   margin: 0;
   font-family: "Kode Mono", sans-serif;
   background: url("/src/assets/background.png"), #000;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 @media (max-width: 430px) {
