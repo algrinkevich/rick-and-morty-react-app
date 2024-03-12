@@ -7,7 +7,7 @@
 body {
   margin: 0;
   font-family: "Kode Mono", sans-serif;
-  background: url("/src/assets/background.png"), #000;
+  background: url("/src/assets/bg-large.png"), url("/src/assets/bg-small.jpg"), #000;
   background-attachment: fixed;
   background-size: cover;
 }
